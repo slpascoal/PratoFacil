@@ -13,11 +13,11 @@ const FormularioPrato = () => {
     useEffect(() => {
         if (parametros.id) {
             http.get<IPrato>(`pratos/${parametros.id}/`)
-                .then(resposta => setPrato(resposta.data.nome))
+                .then(resposta => setPrato(resposta.data))
         }
     }, [parametros])
 
-    const [prato, setPrato] = useState<IPrato>('')
+    const [prato, setPrato] = useState<IPrato>()
 
     const [nomePrato, setNomePrato] = useState('')
     const [descricao, setDescricao] = useState('')
@@ -52,7 +52,7 @@ const FormularioPrato = () => {
             }
 
             http.request({
-                url: `pratos/${prato.id}`,
+                url: `pratos/${prato?.id}/`,
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'multipart/form-data'
